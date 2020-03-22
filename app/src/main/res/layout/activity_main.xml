@@ -19,17 +19,86 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/boardGridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/clearButton"
-        android:layout_below="@id/informationTV"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
         android:layout_centerInParent="true"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginVertical="96dp"
+        android:layout_margin="16dp"
         android:background="@drawable/board"
-        android:layoutMode="opticalBounds"
         app:columnCount="3"
-        app:rowCount="3" />
+        app:rowCount="3" >
+
+        <ImageView
+            android:id="@+id/position1IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position2IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="12dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position3IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position4IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="35dp"
+            android:layout_marginHorizontal="15dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position5IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="35dp"
+            android:layout_marginHorizontal="12dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position6IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="35dp"
+            android:layout_marginHorizontal="20dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position7IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="20dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position8IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="12dp"
+            android:onClick="dropIn" />
+
+        <ImageView
+            android:id="@+id/position9IV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:onClick="dropIn" />
+    </androidx.gridlayout.widget.GridLayout>
 
         <Button
         android:id="@+id/clearButton"
