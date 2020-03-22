@@ -19,8 +19,11 @@ public class MainActivity extends AppCompatActivity {
     // Declaring views
     private TextView information;
     private Button clearButton;
+    private ImageView[] position = new ImageView[9];
 
-    String updatedInfo;
+    private String updatedInfo;
+    private boolean gameOver = false;
+
     private int activePlayer = 0;
     private int[] gameStatus = {2, 2, 2, 2, 2, 2, 2, 2, 2};
     //value 2 at any index refers that it is empty, i.e not occupied by any player
@@ -30,14 +33,30 @@ public class MainActivity extends AppCompatActivity {
     //Storing all possible winning positions in an array
     private int[][] winningPositions = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7} };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        //Linking views
-        information = findViewById(R.id.informationTV);
-        clearButton = findViewById(R.id.clearButton);
+    private void checkForWin(){
+        //Loop through all winning situation status
+        for(int[] pos : winningPositions)
+            if (gameStatus[pos[0] - 1] == gameStatus[pos[1] - 1] && gameStatus[pos[1] - 1] == gameStatus[pos[2] - 1] && gameStatus[pos[0] - 1] != 2) {
+                gameOver = true;
+
+                information.animate().alpha(1).setDuration(300);
+                clearButton.animate().alpha(1).setDuration(300);
+
+                if (activePlayer == 1){
+                    updatedInfo = "Red Wins ";
+                    position[pos[0] - 1].setImageResource(R.drawable.red_win);
+                    position[pos[1] - 1].setImageResource(R.drawable.red_win);
+                    position[pos[2] - 1].setImageResource(R.drawable.red_win);
+
+                } else{
+                    updatedInfo = "Yellow Wins";
+                    position[pos[0] - 1].setImageResource(R.drawable.yellow_win);
+                    position[pos[1] - 1].setImageResource(R.drawable.yellow_win);
+                    position[pos[2] - 1].setImageResource(R.drawable.yellow_win);
+                }
+
+            }
     }
 
     //dropIn function gets called when any of the grid layout position is tapped
@@ -47,9 +66,14 @@ public class MainActivity extends AppCompatActivity {
         //Get tag associated with image chosen by user
         int tag = Integer.parseInt( image.getTag().toString() );
 
-        // Display a toast message if the position is already occupied
-        if(gameStatus[tag -1] != 2) {
-            Toast.makeText(MainActivity.this, "This tile is already occupied", Toast.LENGTH_SHORT).show();
+        if(gameOver) {
+            // Display a toast message if the game is over
+            Toast.makeText(this, "Game is over\nPlease reset the board to play again", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(gameStatus[tag -1] != 2) {
+            // Display a toast message if the position is already occupied
+            Toast.makeText(this, "This tile is already occupied", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -68,12 +92,7 @@ public class MainActivity extends AppCompatActivity {
         //Set game status corresponding to that image position to the active player
         gameStatus[tag - 1] = activePlayer;
 
-        //Loop through all winning situation status
-        for(int i = 0; i < 8; i++){
-            if(gameStatus[ winningPositions[i][0]  - 1 ] == gameStatus[ winningPositions[i][1]  - 1 ] && gameStatus[ winningPositions[i][1]  - 1 ] == gameStatus[ winningPositions[i][2]  - 1 ]  && gameStatus[ winningPositions[i][0]  - 1 ] != 2)
-                if(activePlayer == 1) updatedInfo = "Red Wins ";
-                else updatedInfo = "Yellow Wins";
-        }
+        checkForWin();
 
         activePlayer ^= 1; //Changing the value of active player
 
@@ -91,5 +110,24 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("LOGCAT", "Position = " + tag + " occupied by " + gameStatus[tag - 1]);
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //Linking views
+        information = findViewById(R.id.informationTV);
+        clearButton = findViewById(R.id.clearButton);
+        position[0] = findViewById(R.id.position1IV);
+        position[1] = findViewById(R.id.position2IV);
+        position[2] = findViewById(R.id.position3IV);
+        position[3] = findViewById(R.id.position4IV);
+        position[4] = findViewById(R.id.position5IV);
+        position[5] = findViewById(R.id.position6IV);
+        position[6] = findViewById(R.id.position7IV);
+        position[7] = findViewById(R.id.position8IV);
+        position[8] = findViewById(R.id.position9IV);
     }
 }
