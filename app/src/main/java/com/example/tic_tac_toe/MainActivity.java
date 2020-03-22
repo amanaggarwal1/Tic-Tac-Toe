@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String updatedInfo;
     private boolean gameOver = false;
+    private int count = 0; // number of turn in the ongoing game
 
     private int activePlayer = 0;
     private int[] gameStatus = {2, 2, 2, 2, 2, 2, 2, 2, 2};
@@ -62,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
                             image.setImageResource(R.drawable.yellow_win);
                         }
                 }
+            }else if(count == 9){
+                updatedInfo = "This game was tie";
+                gameOver = true;
+                information.animate().alpha(1).setDuration(300);
+                clearButton.animate().alpha(1).setDuration(300);
             }
     }
 
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         for(int p = 0; p < gameStatus.length; p++)
             gameStatus[p] = 2;
 
+        count = 0;
         gameOver = false;
         activePlayer = 0;
     }
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        count++;
         // Initially translating the image beyond the screen in upward direction
         image.setTranslationY(-1000);
 
@@ -120,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
         //Set game status corresponding to that image position to the active player
         gameStatus[tag - 1] = activePlayer;
 
-        checkForWin();
+        if(count >=5 && count <= 9)
+            checkForWin();
 
         activePlayer ^= 1; //Changing the value of active player
 
