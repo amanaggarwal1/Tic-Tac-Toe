@@ -120,6 +120,7 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
         android:alpha="0.4"
-        android:text="CLEAR  BOARD" />
+        android:onClick="resetGame"
+        android:text="CLEAR BOARD" />
 
 </RelativeLayout>

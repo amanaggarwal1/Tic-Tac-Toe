@@ -17,9 +17,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     // Declaring views
+    private GridLayout grid;
     private TextView information;
     private Button clearButton;
-    private ImageView[] position = new ImageView[9];
 
     private String updatedInfo;
     private boolean gameOver = false;
@@ -34,30 +34,58 @@ public class MainActivity extends AppCompatActivity {
     private int[][] winningPositions = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, {1, 5, 9}, {3, 5, 7} };
 
 
-    private void checkForWin(){
+    private void checkForWin() {
         //Loop through all winning situation status
-        for(int[] pos : winningPositions)
+        for (int[] pos : winningPositions)
             if (gameStatus[pos[0] - 1] == gameStatus[pos[1] - 1] && gameStatus[pos[1] - 1] == gameStatus[pos[2] - 1] && gameStatus[pos[0] - 1] != 2) {
+
                 gameOver = true;
 
                 information.animate().alpha(1).setDuration(300);
                 clearButton.animate().alpha(1).setDuration(300);
 
-                if (activePlayer == 1){
+                if (activePlayer == 1) {
                     updatedInfo = "Red Wins ";
-                    position[pos[0] - 1].setImageResource(R.drawable.red_win);
-                    position[pos[1] - 1].setImageResource(R.drawable.red_win);
-                    position[pos[2] - 1].setImageResource(R.drawable.red_win);
+                    //Set images with crown symbol in them
+                    for (int i = 0; i < grid.getChildCount(); i++)
+                        if (i == pos[0] - 1 || i == pos[1] - 1 || i == pos[2] - 1) {
+                            ImageView image = (ImageView) grid.getChildAt(i);
+                            image.setImageResource(R.drawable.red_win);
+                        }
 
-                } else{
+                } else {
                     updatedInfo = "Yellow Wins";
-                    position[pos[0] - 1].setImageResource(R.drawable.yellow_win);
-                    position[pos[1] - 1].setImageResource(R.drawable.yellow_win);
-                    position[pos[2] - 1].setImageResource(R.drawable.yellow_win);
+                    //Set images with crown symbol in them
+                    for (int i = 0; i < grid.getChildCount(); i++)
+                        if (i == pos[0] - 1 || i == pos[1] - 1 || i == pos[2] - 1) {
+                            ImageView image = (ImageView) grid.getChildAt(i);
+                            image.setImageResource(R.drawable.yellow_win);
+                        }
                 }
-
             }
     }
+
+    public void resetGame(View v){
+        //check if game is over yet or not
+        if(!gameOver){
+            Toast.makeText(this, "Please finish this game", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        information.setText("Yellow's Turn");
+        information.animate().alpha(0.4f).setDuration(300);
+        clearButton.animate().alpha(0.4f).setDuration(300);
+        for(int i = 0; i < grid.getChildCount(); i++){
+            ImageView image = (ImageView) grid.getChildAt(i);
+            image.setImageDrawable(null);
+        }
+        for(int p = 0; p < gameStatus.length; p++)
+            gameStatus[p] = 2;
+
+        gameOver = false;
+        activePlayer = 0;
+    }
+
 
     //dropIn function gets called when any of the grid layout position is tapped
     public void dropIn(View v){
@@ -108,8 +136,6 @@ public class MainActivity extends AppCompatActivity {
         // image comes spinning from the top of the screen
         image.animate().translationYBy(1000).rotationBy(1800).setDuration(300);
 
-        Log.i("LOGCAT", "Position = " + tag + " occupied by " + gameStatus[tag - 1]);
-
     }
 
     @Override
@@ -118,16 +144,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Linking views
+        grid = findViewById(R.id.boardGridLayout);
         information = findViewById(R.id.informationTV);
         clearButton = findViewById(R.id.clearButton);
-        position[0] = findViewById(R.id.position1IV);
-        position[1] = findViewById(R.id.position2IV);
-        position[2] = findViewById(R.id.position3IV);
-        position[3] = findViewById(R.id.position4IV);
-        position[4] = findViewById(R.id.position5IV);
-        position[5] = findViewById(R.id.position6IV);
-        position[6] = findViewById(R.id.position7IV);
-        position[7] = findViewById(R.id.position8IV);
-        position[8] = findViewById(R.id.position9IV);
     }
 }
