@@ -1,13 +1,10 @@
-package com.example.tic_tac_toe;
+package com.amanaggarwal1.tic_tac_toe;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Constraints;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
