@@ -3,6 +3,7 @@ package com.amanaggarwal1.tic_tac_toe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private Button clearButton;
 
     private String updatedInfo;
+    int updateColor = Color.YELLOW;
     private boolean gameOver = false;
     private int count = 0; // number of turn in the ongoing game
 
@@ -43,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 clearButton.animate().alpha(1).setDuration(300);
 
                 if (activePlayer == 1) {
-                    updatedInfo = "Red Wins ";
+                    updatedInfo = "Red Wins!";
+                    updateColor = Color.RED;
                     //Set images with crown symbol in them
                     for (int i = 0; i < grid.getChildCount(); i++)
                         if (i == pos[0] - 1 || i == pos[1] - 1 || i == pos[2] - 1) {
@@ -52,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                 } else {
-                    updatedInfo = "Yellow Wins";
+                    updatedInfo = "Yellow Wins!";
+                    updateColor = Color.YELLOW;
                     //Set images with crown symbol in them
                     for (int i = 0; i < grid.getChildCount(); i++)
                         if (i == pos[0] - 1 || i == pos[1] - 1 || i == pos[2] - 1) {
@@ -71,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
     public void resetGame(View v){
         //check if game is over yet or not
         if(!gameOver){
-            Toast.makeText(this, "Please finish this game", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please finish this round", Toast.LENGTH_SHORT).show();
             return;
         }
 
         information.setText("Yellow's Turn");
-        information.animate().alpha(0.4f).setDuration(300);
+        information.setTextColor(Color.YELLOW);
+        information.animate(). alpha(0.4f).setDuration(300);
         clearButton.animate().alpha(0.4f).setDuration(300);
         for(int i = 0; i < grid.getChildCount(); i++){
             ImageView image = (ImageView) grid.getChildAt(i);
@@ -117,9 +122,11 @@ public class MainActivity extends AppCompatActivity {
         if(activePlayer == 1) {
             image.setImageResource(R.drawable.red);
             updatedInfo = "Yellow's Turn";
+            updateColor = Color.YELLOW;
         } else{
             image.setImageResource(R.drawable.yellow);
             updatedInfo = "Red's Turn";
+            updateColor = Color.RED;
         }
 
         //Set game status corresponding to that image position to the active player
@@ -136,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 information.setText(updatedInfo);
+                information.animate().alpha(0.6f).setDuration(200);
+                information.setTextColor(updateColor);
             }
         }, 300);
 
