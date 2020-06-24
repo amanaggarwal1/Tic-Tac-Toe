@@ -8,3 +8,8 @@ Get Free Tic Tac Toe now and let the fun begins!
 
 
 Download the game now - https://drive.google.com/file/d/1CrgGz2xcA2MC6QKnpM-rc9rVKObn45Z7/view?usp=sharing
+
+![5 win image](Screenshots/5%20win.jpg)
+![In game image](Screenshots/In%20game.jpg)
+![Yelloe win image](Screenshots/Yellow%20winner.jpg)
+![Red win image](Screenshots/Red%20winner.jpg)
